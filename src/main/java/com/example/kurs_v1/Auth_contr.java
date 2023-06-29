@@ -44,7 +44,7 @@ public class Auth_contr {
 
             String query = "SELECT * FROM furniture_lines" ; // запрос :(((
             try {
-                DBconnection db = new DBconnection();
+                DBconnection db;
                 ResultSet res = DBconnection.st.executeQuery(query);
                 while(res.next()){
                     int id = res.getInt("id" );
@@ -55,7 +55,7 @@ public class Auth_contr {
                     System.out.println(", name = \" " + name + " \" " );
                     //System.out.println(" , short name = \" " + short_name + " \" . " );
                 }
-            } catch (SQLException | ClassNotFoundException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         });
