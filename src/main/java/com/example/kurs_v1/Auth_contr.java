@@ -1,15 +1,15 @@
 package com.example.kurs_v1;
 
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import javafx.scene.control.Label;
-import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class Auth_contr {
     Auth_Reg_model model;
@@ -77,7 +77,12 @@ public class Auth_contr {
             String AuthLogin = Login_field_auth.getText().trim();
             String AuthPass = Password_field_auth.getText().trim();
             if(!AuthLogin.equals("")&&!AuthPass.equals("")){
-                model.loginUser(AuthLogin, AuthPass);
+                try {
+                    Auth_Reg_model.loginUser(AuthLogin, AuthPass);
+                    if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 0) Wrong_Auth.setText("Проверьте логин или пароль еще раз");
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
             else {
                 Wrong_Auth.setText(WINS);
@@ -93,6 +98,8 @@ public class Auth_contr {
                 if(RegPass.equals(RegPass_rep)) {
                     try {
                         Auth_Reg_model.regUser(RegLogin, RegPass);
+                        Wrong_Reg.setTextFill(Color.GREEN);
+                        Wrong_Reg.setText("Вы успешно зарегестрировались");
                     } catch (SQLException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }

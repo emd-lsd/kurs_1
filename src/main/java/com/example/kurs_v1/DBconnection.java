@@ -17,9 +17,9 @@ public class DBconnection {
         if(instance == null){
             instance = new DBconnection();
         }
-        return instance;
+        return instance; // получаем сущность - класса DBconnection и вызвали конструктор - создали подключение единоразово
     }
     public Connection getConnection(){
-        return connection;
+        return connection; // получаем подключение от сущности DBconnection
     }
 }
