@@ -1,12 +1,17 @@
 package com.example.kurs_v1;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -78,7 +83,25 @@ public class Auth_contr {
             String AuthPass = Password_field_auth.getText().trim();
             if(!AuthLogin.equals("")&&!AuthPass.equals("")){
                 try {
-                    Auth_Reg_model.loginUser(AuthLogin, AuthPass);
+                    //Auth_Reg_model.loginUser(AuthLogin, AuthPass);
+                    if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 1){
+                        Authentification_button.getScene().getWindow().hide();
+
+
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("shop-view.fxml"));
+                        //fxmlLoader.setRoot(new AnchorPane());
+
+                        try {
+                            fxmlLoader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Parent root = fxmlLoader.getRoot();
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    }
                     if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 0) Wrong_Auth.setText("Проверьте логин или пароль еще раз");
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
