@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class ShopViewController {
@@ -53,8 +54,15 @@ public class ShopViewController {
     private Text user_id;
 
     @FXML
-    void initialize() {
+    private Text store_id;
 
+    @FXML
+    void initialize() throws SQLException, ClassNotFoundException {
+        User user = new User();
+        System.out.println(User.getUserid() + " initializer of shop "+Shop_role_model.getStoreid(user));
+        fax_num.setText(Shop_role_model.getFaxNum(user));
+        address.setText(Shop_role_model.getAddress(user));
+        store_id.setText(String.valueOf(Shop_role_model.getStoreid(user)));
 
     }
 

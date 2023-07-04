@@ -12,21 +12,30 @@ public class Auth_Reg_model {
         int flag = 0;
         int hashPass = password.hashCode();
         User user = new User(login, hashPass);
-        String select = "SELECT login, passw FROM users WHERE login =? AND passw =?";
+        String select = "SELECT id, login, passw, role_id FROM users WHERE login =? AND passw =?";
         PreparedStatement preparedStatement = DBconnection.getInstance().getConnection().prepareStatement(select);
         preparedStatement.setString(1, user.getLogin());
         preparedStatement.setString(2, Integer.toString(user.getPassword()));
         res = preparedStatement.executeQuery();
         int i = 0;
-        while(res.next()) i++;
+        int id=0;
+        int role_id=0;
+        while(res.next()) {
+            i++;
+            id = res.getInt("id");
+            role_id = res.getInt("role_id");
+        }
         if(i>0){
             System.out.println("U're accessed!");
             flag = 1;
+            if (role_id!=0) user.setUserid(id);
         }
         else {
             System.out.println("Check ur login or password again");
             flag = 0;
         }
+        System.out.println(id+" "+role_id + " " + user.getUserid());
+
         return flag;
     }
     public static void regUser (String username, String reg_pass) throws SQLException, ClassNotFoundException {
@@ -52,6 +61,21 @@ public class Auth_Reg_model {
         PreparedStatement prstStores = DBconnection.getInstance().getConnection().prepareStatement(quest_stores);
         prstStores.executeUpdate();
     }
+    /*
+    ResultSet rs;
+            String selected = "SELECT id, role_id FROM users WHERE login =? AND passw =?";
+            PreparedStatement prSt = DBconnection.getInstance().getConnection().prepareStatement(select);
+            prSt.setString(1, user.getLogin());
+            prSt.setString(2, Integer.toString(user.getPassword()));
+            rs = prSt.executeQuery();
+            int id =0;
+            int role_id = 0;
+            while (rs.next()) {
+                id = rs.getInt(1);
+                role_id = rs.getInt(2);
+            }
+            if(role_id!=0) user.setUserid(id);
+     */
 
 
 }

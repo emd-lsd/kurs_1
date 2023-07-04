@@ -114,6 +114,11 @@
                   </Tab>
               </tabs>
             </TabPane>
+            <Text fx:id="store_id" fill="LIME" fontSmoothingType="LCD" layoutX="418.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="51.4000244140625">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Text>
          </children>
          <effect>
             <DropShadow />

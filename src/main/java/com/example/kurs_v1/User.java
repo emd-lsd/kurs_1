@@ -3,6 +3,7 @@ package com.example.kurs_v1;
 public class User {
     String login;
     int password;
+    static int userid;
     public User(){}
 
     public User(String login, int password) {
@@ -24,5 +25,13 @@ public class User {
 
     public void setPassword(int password) {
         this.password = password;
+    }
+
+    public static int getUserid(){
+        return userid;
+    }
+
+    public static void setUserid(int userid) {
+        User.userid = userid;
     }
 }
