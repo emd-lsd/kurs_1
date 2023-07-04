@@ -3,6 +3,8 @@ package com.example.kurs_v1;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import javafx.scene.control.Label;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +12,13 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class Auth_contr {
+    Auth_Reg_model model;
+    final String WPASS = "Пароли не совпадают";
+    final String EMPTY = "";
+    final String WINS = "Логин или пароль не заполнены";
+
+    @FXML
+    private Label Diff_passw;
 
     @FXML
     private ResourceBundle resources;
@@ -39,13 +48,20 @@ public class Auth_contr {
     private Button Signup_button;
 
     @FXML
+    private Label Wrong_Auth;
+
+    @FXML
+    private Label Wrong_Reg;
+
+    @FXML
     void initialize() {
         Authentification_button.setOnAction(actionEvent -> {
-
+/*
             String query = "SELECT * FROM furniture_lines" ; // запрос :(((
             try {
-                DBconnection db;
-                ResultSet res = DBconnection.st.executeQuery(query);
+                //DBconnection db;
+                Statement st = DBconnection.getInstance().getConnection().createStatement();
+                ResultSet res = st.executeQuery(query);
                 while(res.next()){
                     int id = res.getInt("id" );
                     String name = res.getString("name" );
@@ -55,12 +71,46 @@ public class Auth_contr {
                     System.out.println(", name = \" " + name + " \" " );
                     //System.out.println(" , short name = \" " + short_name + " \" . " );
                 }
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
+            } */
+            String AuthLogin = Login_field_auth.getText().trim();
+            String AuthPass = Password_field_auth.getText().trim();
+            if(!AuthLogin.equals("")&&!AuthPass.equals("")){
+                model.loginUser(AuthLogin, AuthPass);
+            }
+            else {
+                Wrong_Auth.setText(WINS);
+            }
+
+        });
+
+        Signup_button.setOnAction(actionEvent -> {
+            String RegLogin = Login_field_signup.getText().trim();
+            String RegPass = Password_field_signup.getText().trim();
+            String RegPass_rep = Password_field_signup_rep.getText().trim();
+            if (!RegLogin.equals("")&&!RegPass.equals("")){
+                if(RegPass.equals(RegPass_rep)) {
+                    try {
+                        Auth_Reg_model.regUser(RegLogin, RegPass);
+                    } catch (SQLException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else {
+                    Diff_passw.setText(WPASS);
+                }
+            }
+            else {
+                Wrong_Reg.setText(WINS);
+
             }
         });
 
 
+
     }
+
+
 
 }

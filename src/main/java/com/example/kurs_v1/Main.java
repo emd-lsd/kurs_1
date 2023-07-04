@@ -14,7 +14,8 @@ public class Main {
             DBconnection db = new DBconnection();
             String query = "SELECT * FROM furniture_lines" ; // запрос :(((
             ResultSet result = statement.executeQuery(query); // получение результата запроса в таблицу данных Резалт сет
-            ResultSet res = DBconnection.st.executeQuery(query);
+            Statement st = DBconnection.getInstance().getConnection().createStatement();
+            ResultSet res = st.executeQuery(query);
             while(result.next()){
                 int id = result.getInt("id" );
                 String name = result.getString("name" );
