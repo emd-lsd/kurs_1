@@ -4,6 +4,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -99,7 +101,20 @@
                 </Tab>
                 <Tab text="Orders">
                   <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: WHITE;" />
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: WHITE;">
+                           <children>
+                              <TableView fx:id="OrderTable" layoutX="24.0" layoutY="56.0" prefHeight="200.0" prefWidth="550.0">
+                                <columns>
+                                  <TableColumn fx:id="orderidColumn" prefWidth="44.800052642822266" text="id" />
+                                  <TableColumn fx:id="ordernumberColumn" prefWidth="131.99993896484375" text="order_number" />
+                                    <TableColumn fx:id="orderdateColumn" prefWidth="80.80003356933594" text="order_date" />
+                                    <TableColumn fx:id="furniturenameColumn" prefWidth="99.20001220703125" text="furniture_name" />
+                                    <TableColumn fx:id="quantityColumn" prefWidth="73.60003662109375" text="quantity" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="showOrdersButton" layoutX="300.0" layoutY="14.0" mnemonicParsing="false" text="Показать заказы" />
+                           </children>
+                        </AnchorPane>
                   </content>
                 </Tab>
                   <Tab text="New Order">
@@ -109,7 +124,20 @@
                   </Tab>
                   <Tab text="Furniture">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: WHITE;" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: WHITE;">
+                           <children>
+                              <TableView fx:id="furnitureTable" layoutX="37.0" layoutY="80.0" prefHeight="200.0" prefWidth="471.0">
+                                <columns>
+                                  <TableColumn fx:id="furnitureidColumn" prefWidth="75.0" text="id" />
+                                  <TableColumn fx:id="typeColumn" prefWidth="102.4000244140625" text="type" />
+                                    <TableColumn fx:id="articleColumn" prefWidth="69.59996032714844" text="article" />
+                                    <TableColumn fx:id="priceColumn" prefWidth="78.4000244140625" text="price" />
+                                    <TableColumn fx:id="lineColumn" prefWidth="108.0" text="line" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="showFurnitureButton" layoutX="93.0" layoutY="33.0" mnemonicParsing="false" text="Показать мебель" />
+                           </children>
+                        </AnchorPane>
                     </content>
                   </Tab>
               </tabs>
