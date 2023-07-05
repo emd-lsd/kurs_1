@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -119,7 +120,47 @@
                 </Tab>
                   <Tab text="New Order">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: WHITE;" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: WHITE;">
+                           <children>
+                              <Text fontSmoothingType="LCD" layoutX="96.0" layoutY="119.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Артикль:" wrappingWidth="70.93680095672607">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="articleFieldnewOrder" layoutX="176.0" layoutY="100.0" prefHeight="26.0" prefWidth="106.0" promptText="article" />
+                              <Text fontSmoothingType="LCD" layoutX="82.0" layoutY="156.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество:" wrappingWidth="84.5368070602417">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="quantityFieldnewOrder" layoutX="176.0" layoutY="137.0" prefHeight="26.0" prefWidth="106.0" promptText="quantity" />
+                              <Button fx:id="calculateButton" layoutX="329.0" layoutY="101.0" mnemonicParsing="false" text="Посчитать стоимость" />
+                              <Pane layoutX="333.0" layoutY="136.0" prefHeight="28.0" prefWidth="123.0" style="-fx-background-color: SILVER;">
+                                 <children>
+                                    <Text fx:id="sumpriceOrder" fill="GREEN" fontSmoothingType="LCD" layoutX="20.0" layoutY="18.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="70.93680095672607">
+                                       <font>
+                                          <Font name="Times New Roman" size="16.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </Pane>
+                              <Button fx:id="addnewOrderButton" layoutX="249.0" layoutY="203.0" mnemonicParsing="false" text="Сделать заказ!">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Button>
+                              <Text fx:id="EMPTY_fields" fill="RED" fontSmoothingType="LCD" layoutX="153.0" layoutY="179.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Поля не заполнены" visible="false" wrappingWidth="164.5368070602417">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="WRONG_article" fill="RED" fontSmoothingType="LCD" layoutX="96.0" layoutY="90.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Неверный артикль" visible="false" wrappingWidth="164.5368070602417">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
                     </content>
                   </Tab>
                   <Tab text="Furniture">

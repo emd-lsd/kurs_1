@@ -3,6 +3,7 @@ package com.example.kurs_v1;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Shop_role_model {
@@ -85,5 +86,84 @@ public class Shop_role_model {
         prst.setInt(1, store_id);
         ResultSet resultSet = prst.executeQuery();
         return resultSet;
+    }
+
+    public static String CalculatePrice(String article, String quantity) throws SQLException, ClassNotFoundException {
+        ResultSet res = null;
+        int i = 0;
+        String checkprice = "SELECT furniture_items.price*? FROM furniture_items WHERE furniture_items.article=?";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(checkprice);
+        prst.setString(1,quantity);
+        prst.setString(2,article);
+        res = prst.executeQuery();
+        String price="";
+        while (res.next()){
+            price=res.getString(1);
+            i++;
+        }
+        return price;
+    }
+
+    public static int addnewOrder(String article, String quantity) throws SQLException, ClassNotFoundException {
+        LocalDate currentDate = LocalDate.now();
+        int order_num = (int)(Math.random() * 100) + 1;
+        int storeid = getStoreid(null);
+        addfirstlyOrder(order_num, String.valueOf(currentDate), storeid);
+        int orderid = getOrderId(order_num, storeid);
+        String addorder = "INSERT INTO order_items(order_id, furniture_item_id, quantity) VALUES (?,(SELECT id FROM furniture_items WHERE furniture_items.article=?),?)";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(addorder);
+        prst.setInt(1, orderid);
+        prst.setString(2, article);
+        prst.setString(3, quantity);
+        prst.executeUpdate();
+        return order_num;
+    }
+
+    public  static void addfirstlyOrder(int order_number, String order_date, int storeid) throws SQLException, ClassNotFoundException {
+        String firstlyorder = "INSERT INTO orders(order_number, order_date, store_id) VALUES (?,?,?)";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(firstlyorder);
+        prst.setInt(1, order_number);
+        prst.setString(2,order_date);
+        prst.setInt(3, storeid);
+        prst.executeUpdate();
+    }
+
+    public  static int getOrderId(int order_number, int storeid) throws SQLException, ClassNotFoundException {
+        String select = "SELECT id FROM orders WHERE orders.order_number=? AND orders.store_id=?";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(select);
+        prst.setInt(1, order_number);
+        prst.setInt(2, storeid);
+        ResultSet rst = prst.executeQuery();
+        int orderid=0;
+        while (rst.next()){
+            orderid = rst.getInt(1);
+        }
+        return orderid;
+    }
+
+    public static void updateAddress(String address) throws SQLException, ClassNotFoundException {
+        int storeid = getStoreid(null);
+        String update = "UPDATE stores SET address=? WHERE id =?";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(update);
+        prst.setString(1, address);
+        prst.setInt(2, storeid);
+        prst.executeUpdate();
+    }
+
+    public static void updateFax(String fax) throws SQLException, ClassNotFoundException {
+        int storeid = getStoreid(null);
+        String update = "UPDATE stores SET fax_number=? WHERE id =?";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(update);
+        prst.setString(1, fax);
+        prst.setInt(2, storeid);
+        prst.executeUpdate();
+    }
+
+    public static void updatePassword(int password, int userid) throws SQLException, ClassNotFoundException {
+        String update = "UPDATE users SET passw=? WHERE id=?";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(update);
+        prst.setInt(1, password);
+        prst.setInt(2, userid);
+        prst.executeUpdate();
     }
 }

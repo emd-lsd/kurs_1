@@ -3,16 +3,14 @@ package com.example.kurs_v1;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -106,6 +104,28 @@ public class ShopViewController {
     private Text user_id;
 
     @FXML
+    private Button addnewOrderButton;
+
+    @FXML
+    private Button calculateButton;
+
+    @FXML
+    private TextField quantityFieldnewOrder;
+
+    @FXML
+    private TextField articleFieldnewOrder;
+
+    @FXML
+    private Text sumpriceOrder;
+
+    @FXML
+    private Text WRONG_article;
+
+    @FXML
+    private Text EMPTY_fields;
+
+
+    @FXML
     void initialize() throws SQLException, ClassNotFoundException {
         User user = new User();
         System.out.println(User.getUserid() + " initializer of shop "+Shop_role_model.getStoreid(user));
@@ -165,6 +185,128 @@ public class ShopViewController {
             OrderTable.setItems(orders);
         });
 
+        calculateButton.setOnAction(actionEvent -> {
+            WRONG_article.setVisible(false);
+            EMPTY_fields.setVisible(false);
+            String quantity = quantityFieldnewOrder.getText().trim();
+            String article = articleFieldnewOrder.getText().trim();
+            if(!quantity.equals("")&&!article.equals("")){
+
+                String prc="";
+                try {
+                    prc = Shop_role_model.CalculatePrice(article, quantity);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if(!prc.equals("")){
+                    sumpriceOrder.setText(prc);
+                }
+                else {
+                    WRONG_article.setVisible(true);
+                }
+
+            }
+            else{
+                EMPTY_fields.setVisible(true);
+            }
+        });
+
+        addnewOrderButton.setOnAction(actionEvent -> {
+            WRONG_article.setVisible(false);
+            EMPTY_fields.setVisible(false);
+            String quantity = quantityFieldnewOrder.getText().trim();
+            String article = articleFieldnewOrder.getText().trim();
+            if(!quantity.equals("")&&!article.equals("")){
+
+                String prc="";
+                try {
+                    prc = Shop_role_model.CalculatePrice(article, quantity);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if(!prc.equals("")){
+                    sumpriceOrder.setText(prc);
+                    int ordernum=0;
+                    try {
+                        ordernum=Shop_role_model.addnewOrder(article, quantity);
+                    } catch (SQLException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    LocalDate currentDate = LocalDate.now();
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Новый заказ ");
+                    alert.setHeaderText("Ваш заказ создан");
+                    alert.setContentText("Ваш заказ с номером "+ordernum+" на сумму "+prc+" успешно создан "+currentDate);
+                    alert.showAndWait();
+                }
+                else {
+                    WRONG_article.setVisible(true);
+                }
+
+            }
+            else{
+                EMPTY_fields.setVisible(true);
+            }
+        });
+
+        Change_adress.setOnAction(actionEvent -> {
+            String adr = address_field.getText().trim();
+            if(!adr.equals("")){
+                try {
+                    Shop_role_model.updateAddress(adr);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    address.setText(Shop_role_model.getAddress(user));
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Change_fax.setOnAction(actionEvent -> {
+            String fx = fax_num_field.getText().trim();
+            if(!fx.equals("")){
+                try {
+                    Shop_role_model.updateFax(fx);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    fax_num.setText(Shop_role_model.getFaxNum(user));
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        Change_pass.setOnAction(actionEvent -> {
+            WRONGPASS.setVisible(false);
+            String actpass = act_pass_field.getText().trim();
+            String newpass = new_pass_field.getText().trim();
+            if(!actpass.equals("")&&!newpass.equals("")){
+                if(actpass.hashCode()==User.getPassword()){
+                    User.setPassword(newpass.hashCode());
+                    try {
+                        Shop_role_model.updatePassword(User.getPassword(), User.getUserid());
+                    } catch (SQLException | ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Новый пароль");
+                    alert.setHeaderText("Вы успешно сменили пароль");
+                    alert.setContentText("");
+                    alert.showAndWait();
+                    act_pass_field.setText("");
+                    new_pass_field.setText("");
+
+                }
+                else {
+                    WRONGPASS.setVisible(true);
+                }
+            }
+        });
     }
 
 }

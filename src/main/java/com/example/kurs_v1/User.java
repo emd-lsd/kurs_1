@@ -2,13 +2,13 @@ package com.example.kurs_v1;
 
 public class User {
     static String login;
-    int password;
+    static int password;
     static int userid;
     public User(){}
 
     public User(String login, int password) {
         User.login = login;
-        this.password = password;
+        User.password = password;
     }
 
     public static String getLogin() {
@@ -19,12 +19,12 @@ public class User {
         User.login = login;
     }
 
-    public int getPassword() {
+    public static int getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
-        this.password = password;
+    public static void setPassword(int password) {
+        User.password = password;
     }
 
     public static int getUserid(){
