@@ -84,7 +84,7 @@ public class Auth_contr {
             if(!AuthLogin.equals("")&&!AuthPass.equals("")){
                 try {
                     //Auth_Reg_model.loginUser(AuthLogin, AuthPass);
-                    if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 1){
+                    if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 3){
                         Authentification_button.getScene().getWindow().hide();
 
 
@@ -102,7 +102,28 @@ public class Auth_contr {
                         stage.setScene(new Scene(root));
                         stage.show();
                     }
-                    if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 0) Wrong_Auth.setText("Проверьте логин или пароль еще раз");
+                    else if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 2){
+                        Authentification_button.getScene().getWindow().hide();
+
+
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("worker-view.fxml"));
+                        //fxmlLoader.setRoot(new AnchorPane());
+
+                        try {
+                            fxmlLoader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Parent root = fxmlLoader.getRoot();
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                    }
+                    else if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 1){
+
+                    }
+                    else Wrong_Auth.setText("Проверьте логин или пароль еще раз");
                 } catch (SQLException | ClassNotFoundException e) {
                     e.printStackTrace();
                 }

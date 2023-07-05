@@ -1,132 +1,44 @@
 package com.example.kurs_v1;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
-
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Worker_role_model {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Button Change_pass;
-
-    @FXML
-    private Button SetComponentButton;
-
-    @FXML
-    private Text WRONGPASS;
-
-    @FXML
-    private TextField act_pass_field;
-
-    @FXML
-    private TextField addedpriceFurnitureFIeld;
-
-    @FXML
-    private Button addnewComponentButton;
-
-    @FXML
-    private Button addnewComponentButton1;
-
-    @FXML
-    private Button addnewFurnitureButton;
-
-    @FXML
-    private TableColumn<?, ?> articleColumn;
-
-    @FXML
-    private TextField articleFurnitureFIeld;
-
-    @FXML
-    private TableColumn<?, ?> codeComponentColumn;
-
-    @FXML
-    private TextField codeComponentFIeld;
-
-    @FXML
-    private TextField compidSetCompField;
-
-    @FXML
-    private TableView<?> componentsTable;
-
-    @FXML
-    private TableColumn<?, ?> fnameCOmponentColumn;
-
-    @FXML
-    private TableView<?> furnitureTable;
-
-    @FXML
-    private TableColumn<?, ?> furnitureidColumn;
-
-    @FXML
-    private TableColumn<?, ?> idComponentColumn;
-
-    @FXML
-    private TextField idfurSetCompField;
-
-    @FXML
-    private TableColumn<?, ?> lineColumn;
-
-    @FXML
-    private TextField lineFurnitureFIeld;
-
-    @FXML
-    private Text login;
-
-    @FXML
-    private TableColumn<?, ?> nameComponentColumn;
-
-    @FXML
-    private TextField nameLineFurnitureFIeld;
-
-    @FXML
-    private TextField new_pass_field;
-
-    @FXML
-    private TableColumn<?, ?> priceColumn;
-
-    @FXML
-    private TableColumn<?, ?> priceComponentColumn;
-
-    @FXML
-    private TextField priceComponentField;
-
-    @FXML
-    private TableColumn<?, ?> quantityComponentColumn;
-
-    @FXML
-    private TextField quantitySetCompField;
-
-    @FXML
-    private Button showFurnitureButton;
-
-    @FXML
-    private TableColumn<?, ?> typeColumn;
-
-    @FXML
-    private TextField typeComponentFIeld;
-
-    @FXML
-    private TextField typeFurnitureFIeld;
-
-    @FXML
-    private Text user_id;
-
-    @FXML
-    void initialize() {
-
-
+    public static void updatePassword(int password, int userid) throws SQLException, ClassNotFoundException {
+        String update = "UPDATE users SET passw=? WHERE id=?";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(update);
+        prst.setInt(1, password);
+        prst.setInt(2, userid);
+        prst.executeUpdate();
     }
 
+    public static ResultSet getResultFurniture () throws SQLException, ClassNotFoundException {
+        int id=0;
+        String type="";
+        String article="";
+        double price=0;
+        String line="";
+
+
+        String selectFurniture = "SELECT furniture_items.id, furniture_items.type, furniture_items.article, furniture_items.price, furniture_lines.name FROM furniture_items JOIN furniture_lines ON furniture_line_id=furniture_lines.id";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(selectFurniture);
+        ResultSet resultSet = prst.executeQuery();
+        /*while(resultSet.next()){
+            id = resultSet.getInt(1);
+            type = resultSet.getString(2);
+            article = resultSet.getString(3);
+            price = resultSet.getDouble(4);
+            line = resultSet.getString(5);
+        }
+        Furniture furniture = new Furniture(id, type, article, price, line);*/
+        return resultSet;
+    }
+
+    public static ResultSet getResultComponents() throws SQLException, ClassNotFoundException {
+        String select = "SELECT furniture_item_components.id, furniture_items.type, components.type, components.code, components.price, furniture_item_components.quantity FROM furniture_item_components JOIN furniture_items ON furniture_item_components.furniture_item_id=furniture_items.id JOIN components ON furniture_item_components.component_id=components.id";
+        PreparedStatement prst = DBconnection.getInstance().getConnection().prepareStatement(select);
+        ResultSet res = prst.executeQuery();
+        return res;
+    }
 }

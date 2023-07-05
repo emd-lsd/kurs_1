@@ -36,7 +36,7 @@ public class Auth_Reg_model {
         }
         System.out.println(id+" "+role_id + " " + user.getUserid());
 
-        return flag;
+        return role_id;
     }
     public static void regUser (String username, String reg_pass) throws SQLException, ClassNotFoundException {
         int HashPassword = reg_pass.hashCode(); // Хеширование пароля при регистрации по формуле s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1] где s[i] номер символа в строке
