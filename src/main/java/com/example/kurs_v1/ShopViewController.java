@@ -63,6 +63,8 @@ public class ShopViewController {
         fax_num.setText(Shop_role_model.getFaxNum(user));
         address.setText(Shop_role_model.getAddress(user));
         store_id.setText(String.valueOf(Shop_role_model.getStoreid(user)));
+        user_id.setText(String.valueOf(User.getUserid()));
+        login.setText(User.getLogin());
 
     }
 

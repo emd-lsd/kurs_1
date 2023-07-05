@@ -1,22 +1,22 @@
 package com.example.kurs_v1;
 
 public class User {
-    String login;
+    static String login;
     int password;
     static int userid;
     public User(){}
 
     public User(String login, int password) {
-        this.login = login;
+        User.login = login;
         this.password = password;
     }
 
-    public String getLogin() {
+    public static String getLogin() {
         return login;
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        User.login = login;
     }
 
     public int getPassword() {
