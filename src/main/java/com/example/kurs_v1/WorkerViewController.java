@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class WorkerViewController {
@@ -129,6 +130,27 @@ public class WorkerViewController {
     private Button showComponentsButton;
 
     @FXML
+    private TableColumn<Orders, Date> orderdateColumn;
+
+    @FXML
+    private TableColumn<Orders, Integer> orderidColumn;
+
+    @FXML
+    private TableColumn<Orders, String> ordernumberColumn;
+
+    @FXML
+    private TableColumn<Orders, String> furniturenameColumn;
+
+    @FXML
+    private TableColumn<Orders, Integer> quantityColumn;
+
+    @FXML
+    private TableView<Orders> OrderTable;
+
+    @FXML
+    private Button showOrdersButton;
+
+    @FXML
     void initialize() {
         User user = new User();
         user_id.setText(String.valueOf(User.getUserid()));
@@ -210,6 +232,94 @@ public class WorkerViewController {
                 e.printStackTrace();
             }
             componentsTable.setItems(components);
+        });
+
+        addnewComponentButton1.setOnAction(actionEvent -> { // кнопка линейки мебели
+            String fline = nameLineFurnitureFIeld.getText().trim();
+            if(!fline.equals("")){
+                try {
+                    Worker_role_model.addnewfLine(fline);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        addnewComponentButton.setOnAction(actionEvent -> {
+            String typecomp = typeComponentFIeld.getText().trim();
+            String code = codeComponentFIeld.getText().trim();
+            String price = priceComponentField.getText().trim();
+            if(!typecomp.equals("")&&!code.equals("")&&!price.equals("")){
+                try {
+                    Worker_role_model.addnewComponent(typecomp,code,price);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Новый компонент");
+                alert.setHeaderText("Вы успешно добавили новый компонент");
+                alert.setContentText("Вы добавили компонент "+typecomp+" с кодом "+code+" и ценой "+price);
+                alert.showAndWait();
+
+            }
+        });
+
+        SetComponentButton.setOnAction(actionEvent -> {
+            String furid = idfurSetCompField.getText().trim();
+            String compid = compidSetCompField.getText().trim();
+            String quantity = quantitySetCompField.getText().trim();
+            if(!furid.equals("")&&!compid.equals("")&&!quantity.equals("")){
+                try {
+                    Worker_role_model.setItemComp(furid,compid,quantity);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        addnewFurnitureButton.setOnAction(actionEvent -> {
+            String typef = typeFurnitureFIeld.getText().trim();
+            String article = articleFurnitureFIeld.getText().trim();
+            String adprice = addedpriceFurnitureFIeld.getText().trim();
+            String linef = lineFurnitureFIeld.getText().trim();
+            if(!typef.equals("")&&!article.equals("")&&!adprice.equals("")&&!linef.equals("")){
+                try {
+                    Worker_role_model.addnewFurniture(typef, article, adprice, linef);
+                } catch (SQLException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Новая мебель");
+                alert.setHeaderText("Вы успешно добавили новую мебель");
+                alert.setContentText("Вы добавили элемент "+typef+" с артиклем "+article+", ценой "+adprice+" из линейки "+linef);
+                alert.showAndWait();
+            }
+        });
+
+        showOrdersButton.setOnAction(actionEvent -> {
+            ResultSet res = null;
+            try {
+                res = Worker_role_model.getResultOrders(); // обращение через модель
+            } catch (SQLException | ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            ObservableList<Orders> orders = FXCollections.observableArrayList();
+            orderidColumn.setCellValueFactory(new PropertyValueFactory<Orders, Integer>("id"));
+            ordernumberColumn.setCellValueFactory(new PropertyValueFactory<Orders, String>("order_number"));
+            orderdateColumn.setCellValueFactory(new PropertyValueFactory<Orders, Date>("order_date"));
+            furniturenameColumn.setCellValueFactory(new PropertyValueFactory<Orders, String>("furniture_name"));
+            quantityColumn.setCellValueFactory(new PropertyValueFactory<Orders, Integer>("quantity"));
+            try {
+                while(res.next()) {
+
+                    orders.add(new Orders(res.getInt(1), res.getString(2),
+                            res.getDate(3), res.getString(4), res.getInt(5)));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            OrderTable.setItems(orders);
         });
     }
 
