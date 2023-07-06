@@ -121,7 +121,22 @@ public class Auth_contr {
                         stage.show();
                     }
                     else if(Auth_Reg_model.loginUser(AuthLogin, AuthPass) == 1){
+                        Authentification_button.getScene().getWindow().hide();
 
+
+                        FXMLLoader fxmlLoader = new FXMLLoader();
+                        fxmlLoader.setLocation(getClass().getResource("admin-view.fxml"));
+                        //fxmlLoader.setRoot(new AnchorPane());
+
+                        try {
+                            fxmlLoader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Parent root = fxmlLoader.getRoot();
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
                     }
                     else Wrong_Auth.setText("Проверьте логин или пароль еще раз");
                 } catch (SQLException | ClassNotFoundException e) {

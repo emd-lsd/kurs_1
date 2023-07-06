@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: D2691E;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.kurs_v1.AdminViewController">
+   <children>
+      <AnchorPane layoutY="81.0" prefHeight="319.0" prefWidth="600.0" style="-fx-background-color: White;">
+         <children>
+            <TabPane prefHeight="319.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                  <Tab text="Profile">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Text fx:id="WRONGPASS" fill="RED" fontSmoothingType="LCD" layoutX="217.0" layoutY="187.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="НЕВЕРНЫЙ ПАРОЛЬ" visible="false" wrappingWidth="166.93673992156982">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="31.0" layoutY="54.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Пользователь:" wrappingWidth="114.13675212860107">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="user_id" fontSmoothingType="LCD" layoutX="167.0" layoutY="81.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.93672466278076">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="31.0" layoutY="81.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="User id:" wrappingWidth="114.13675212860107">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="login" fontSmoothingType="LCD" layoutX="167.0" layoutY="53.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="218.93672466278076">
+                                 <font>
+                                    <Font name="Times New Roman Bold" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="act_pass_field" layoutX="61.0" layoutY="146.0" prefHeight="26.0" prefWidth="133.0" promptText="actual password" />
+                              <TextField fx:id="new_pass_field" layoutX="61.0" layoutY="188.0" prefHeight="26.0" prefWidth="133.0" promptText="new password" />
+                              <Text fontSmoothingType="LCD" layoutX="61.0" layoutY="126.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Изменение пароля" wrappingWidth="137.33676433563232">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Button fx:id="Change_pass" layoutX="94.0" layoutY="232.0" mnemonicParsing="false" text="Изменить" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Furniture">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="furnitureTable" layoutX="64.0" layoutY="56.0" prefHeight="200.0" prefWidth="471.0">
+                                 <columns>
+                                    <TableColumn fx:id="furnitureidColumn" prefWidth="75.0" text="id" />
+                                    <TableColumn fx:id="typeColumn" prefWidth="102.4000244140625" text="type" />
+                                    <TableColumn fx:id="articleColumn" prefWidth="69.59996032714844" text="article" />
+                                    <TableColumn fx:id="priceColumn" prefWidth="78.4000244140625" text="price" />
+                                    <TableColumn fx:id="lineColumn" prefWidth="108.0" text="line" />
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="showFurnitureButton" layoutX="245.0" layoutY="14.0" mnemonicParsing="false" text="Показать мебель" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Components">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="componentsTable" layoutX="45.0" layoutY="71.0" prefHeight="200.0" prefWidth="515.0">
+                                 <columns>
+                                    <TableColumn fx:id="idComponentColumn" prefWidth="52.000003814697266" text="id" />
+                                    <TableColumn fx:id="fnameCOmponentColumn" prefWidth="98.4000244140625" text="furniture_name" />
+                                    <TableColumn fx:id="nameComponentColumn" prefWidth="75.0" text="component" />
+                                    <TableColumn fx:id="codeComponentColumn" prefWidth="75.0" text="code" />
+                                    <TableColumn fx:id="priceComponentColumn" prefWidth="75.0" text="price" />
+                                    <TableColumn fx:id="quantityComponentColumn" prefWidth="75.0" text="quantity" />
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="showComponentsButton" layoutX="231.0" layoutY="24.0" mnemonicParsing="false" text="Показать компоненты" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Orders">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="OrderTable" layoutX="25.0" layoutY="62.0" prefHeight="200.0" prefWidth="550.0">
+                                 <columns>
+                                    <TableColumn fx:id="orderidColumn" prefWidth="44.800052642822266" text="id" />
+                                    <TableColumn fx:id="ordernumberColumn" prefWidth="131.99993896484375" text="order_number" />
+                                    <TableColumn fx:id="orderdateColumn" prefWidth="80.80003356933594" text="order_date" />
+                                    <TableColumn fx:id="furniturenameColumn" prefWidth="99.20001220703125" text="furniture_name" />
+                                    <TableColumn fx:id="quantityColumn" prefWidth="73.60003662109375" text="quantity" />
+                                 </columns>
+                              </TableView>
+                              <Button fx:id="showOrdersButton" layoutX="246.0" layoutY="14.0" mnemonicParsing="false" text="Показать заказы" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                <Tab text="Users">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="usersTable" layoutX="14.0" layoutY="76.0" prefHeight="200.0" prefWidth="264.0">
+                                <columns>
+                                  <TableColumn fx:id="usersidColumn" prefWidth="46.400028228759766" text="id" />
+                                  <TableColumn fx:id="usersloginColumn" prefWidth="81.5999755859375" text="login" />
+                                    <TableColumn fx:id="userspasswColumn" prefWidth="75.0" text="password" />
+                                    <TableColumn fx:id="usersroleidColumn" prefWidth="55.19999694824219" text="role id" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="showUsersButton" layoutX="68.0" layoutY="44.0" mnemonicParsing="false" text="Обновить пользователей" />
+                              <Text fontSmoothingType="LCD" layoutX="389.0" layoutY="29.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Сменить пароль пользователю" wrappingWidth="114.13675212860107">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="109.0" layoutY="30.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Таблица" wrappingWidth="114.13675212860107">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="310.0" layoutY="90.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="id:" wrappingWidth="57.336764335632324">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="310.0" layoutY="116.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="новый пароль:" wrappingWidth="57.336764335632324">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="useridEditField" layoutX="414.0" layoutY="72.0" promptText="user id" />
+                              <TextField fx:id="newpasUserEditField" layoutX="414.0" layoutY="108.0" promptText="new password" />
+                              <Button fx:id="ChangeuserpasButton" layoutX="425.0" layoutY="163.0" mnemonicParsing="false" text="Сменить" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Edit User">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Text fontSmoothingType="LCD" layoutX="70.0" layoutY="37.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Зарегистрировать работника" wrappingWidth="123.73678874969482">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="39.0" layoutY="97.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="login:" wrappingWidth="57.336764335632324">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="24.0" layoutY="151.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="password:" wrappingWidth="68.53677654266357">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="newloginWorkerField" layoutX="119.0" layoutY="79.0" promptText="login" />
+                              <TextField fx:id="newpasswWorkerField" layoutX="119.0" layoutY="133.0" promptText="new password" />
+                              <Button fx:id="addnewWorkerButton" layoutX="93.0" layoutY="189.0" mnemonicParsing="false" text="Добавить" />
+                              <Text fontSmoothingType="LCD" layoutX="387.0" layoutY="37.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="Удалить пользователя и магазин" wrappingWidth="158.13675212860107">
+                                 <font>
+                                    <Font name="Times New Roman" size="16.0" />
+                                 </font>
+                              </Text>
+                              <Text fontSmoothingType="LCD" layoutX="351.0" layoutY="104.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0" text="user id:" wrappingWidth="57.336764335632324">
+                                 <font>
+                                    <Font name="Times New Roman Italic" size="16.0" />
+                                 </font>
+                              </Text>
+                              <TextField fx:id="useridDeleteField" layoutX="431.0" layoutY="86.0" promptText="user id" />
+                              <Button fx:id="DeleteusernstoreButton" layoutX="408.0" layoutY="141.0" mnemonicParsing="false" text="Удалить" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Stores">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="StoresTable" layoutX="58.0" layoutY="62.0" prefHeight="200.0" prefWidth="307.0">
+                                <columns>
+                                  <TableColumn fx:id="storesidColumn" prefWidth="45.60003662109375" text="id" />
+                                  <TableColumn fx:id="storesaddressColumn" prefWidth="105.5999755859375" text="address" />
+                                    <TableColumn fx:id="storesfaxnColumn" prefWidth="91.99998474121094" text="fax_number" />
+                                    <TableColumn fx:id="storesuseridColumn" prefWidth="58.4000244140625" text="user_id" />
+                                </columns>
+                              </TableView>
+                              <Button fx:id="showStoresButton" layoutX="150.0" layoutY="20.0" mnemonicParsing="false" text="Показать магазины" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </AnchorPane>
+      <Label layoutX="172.0" layoutY="27.0" prefHeight="34.0" prefWidth="256.0" text="Furniture Factory – ADMIN" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
