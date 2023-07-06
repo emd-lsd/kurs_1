@@ -310,7 +310,7 @@ public class AdminViewController {
             usersidColumn.setCellValueFactory(new PropertyValueFactory<Users, Integer>("id"));
             usersloginColumn.setCellValueFactory(new PropertyValueFactory<Users, String>("login"));
             userspasswColumn.setCellValueFactory(new PropertyValueFactory<Users, Integer>("password"));
-            usersroleidColumn.setCellValueFactory(new PropertyValueFactory<Users, Integer>("role id"));
+            usersroleidColumn.setCellValueFactory(new PropertyValueFactory<Users, Integer>("role_id"));
 
             try {
                 while(res.next()) {
