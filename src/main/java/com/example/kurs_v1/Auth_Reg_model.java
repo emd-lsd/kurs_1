@@ -57,7 +57,7 @@ public class Auth_Reg_model {
             id = res.getInt("id");
         }
 
-        String quest_stores = "INSERT INTO stores (address, fax_number, user_id) VALUES ('','',"+id+")";
+        String quest_stores = "INSERT INTO stores (address, fax_number, user_id) VALUES ('',0,"+id+")";
         PreparedStatement prstStores = DBconnection.getInstance().getConnection().prepareStatement(quest_stores);
         prstStores.executeUpdate();
     }
