@@ -39,7 +39,7 @@ public class Auth_Reg_model {
         return role_id;
     }
     public static void regUser (String username, String reg_pass) throws SQLException, ClassNotFoundException {
-        int HashPassword = reg_pass.hashCode(); // Хеширование пароля при регистрации по формуле s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1] где s[i] номер символа в строке
+        int HashPassword = reg_pass.hashCode();
         ResultSet res = null;
 
         String queue = "INSERT INTO users(login, passw, role_id) VALUES (?,?,3)";
@@ -76,6 +76,7 @@ public class Auth_Reg_model {
             }
             if(role_id!=0) user.setUserid(id);
      */
+    // Хеширование пароля при регистрации по формуле s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1] где s[i] номер символа в строке
 
 
 }

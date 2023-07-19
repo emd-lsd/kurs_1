@@ -10,7 +10,7 @@ module com.example.kurs_v1 {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires java.sql;
-    requires mysql.connector.java;
+//    requires mysql.connector.java;
 
     opens com.example.kurs_v1 to javafx.fxml;
     exports com.example.kurs_v1;

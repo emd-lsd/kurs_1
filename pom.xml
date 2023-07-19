@@ -100,7 +100,12 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.kurs_v1/com.example.kurs_v1.HelloApplication</mainClass>
+                            <manifest>
+                                <addClasspath>true</addClasspath>
+                                <classpathPrefix>lib/</classpathPrefix>
+                                <mainClass>com.example.kurs_v1.Starter.main</mainClass>
+                            </manifest>
+
                         </configuration>
                     </execution>
                 </executions>
